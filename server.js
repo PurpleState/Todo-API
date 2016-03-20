@@ -14,18 +14,20 @@ app.get('/',function(req,res){
 });
 
 app.get('/todos',function(req,res){
-	res.json(todos);
+	var queryParams = req.query;
+	var filteredTodos = todos;
+	if(queryParams.hasOwnProperty('completed') && queryParams.completed==='true'){
+		filteredTodos = _.where(filteredTodos,{completed: true});
+	}else if(queryParams.hasOwnProperty('completed') && queryParams.completed==='false'){
+		filteredTodos = _.where(filteredTodos,{completed: false});
+	}
+	res.json(filteredTodos);
 });
 
 app.get('/todos/:id',function(req,res){
 	var todoId = parseInt(req.params.id,10);
 	var matchedTodo=_.findWhere(todos,{id: todoId});
-	// var matchedTodo;
-	// todos.forEach(function(todo){
-	// 	if(todo.id===todoId){
-	// 		matchedTodo=todo;
-	// 	}
-	// });
+	
 	if(matchedTodo){
 		res.json(matchedTodo);
 	}else{
@@ -41,12 +43,10 @@ app.post('/todos', function(req, res){
 		return res.status(400).send();
 	}
 	body.description = body.description.trim();
-
-	//add id field
 	body.id = todoNextId++;
-	//push body into array
+	
 	todos.push(body);
-	//console.log('description: '+body.description);
+	
 	res.json(body);
 });
 
@@ -91,4 +91,3 @@ app.put('/todos/:id',function(req,res){
 app.listen(PORT,function(){
 	console.log('Express listening');
 });
-
