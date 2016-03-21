@@ -11,8 +11,9 @@
 // console.log(person);
 
 var grades = new Array();
-grades = [15,88];
-function addGrades(grades){
+grades = [15, 88];
+
+function addGrades(grades) {
 	grades.push(55);
 	debugger;
 }
