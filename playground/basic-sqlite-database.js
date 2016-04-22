@@ -1,7 +1,7 @@
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize(undefined,undefined,undefined,{
 	'dialect':'sqlite',
-	'storage': __dirname +'basic-sqlite-database.sqlite'
+	'storage': __dirname +'/basic-sqlite-database.sqlite'
 });
 
 var Todo = sequelize.define('todo',{
@@ -35,7 +35,7 @@ sequelize.sync({
 	// 	description: 'Walking my dog'
 	// }).then(function (todo){
 	// 	return Todo.create({
-	// 		description: 'Clean office'
+	// 		description: 'Clean the dog'
 	// 	});
 	// }).then(function(){
 	// 	//return Todo.findById(1)
